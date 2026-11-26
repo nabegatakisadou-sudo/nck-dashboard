@@ -498,7 +498,7 @@ window.fetch=function(input,init){
  const mine=!!b&&url.indexOf(b+'/')===0;
  if(mine){try{const t=tokenNow();if(t){init=Object.assign({},init||{});const h=new Headers(init.headers||(input&&input.headers)||undefined);if(!h.has('X-NCK-Token'))h.set('X-NCK-Token',t);init.headers=h}}catch(e){}}
  const p=nativeFetch(input,init);
- if(mine)p.then(r=>{if((r.status===401||r.status===403)&&url.indexOf('/api/')>0)toast(r.status===401?'Backend meminta token akses. Isi Token pada panel Tahap 19, lalu klik Cek Koneksi.':'Token ditolak atau tidak punya hak untuk aksi ini (viewer hanya membaca; operator menulis/AI; admin backup/restore).')}).catch(()=>{});
+ if(mine)p.then(r=>{if((r.status===401||r.status===403)&&url.indexOf('/api/')>0)toast(r.status===401?'Backend meminta token akses. Buka panel T19 (Backend Connection), isi Access token, lalu klik Simpan pengaturan.':'Token ditolak atau tidak punya hak untuk aksi ini (viewer hanya membaca; operator menulis/AI; admin backup/restore).')}).catch(()=>{});
  return p};
 })();</script>
 <script>
@@ -2081,6 +2081,15 @@ body.nck41-panelview #nck41-bar{display:flex}
  input:not([type=checkbox]):not([type=radio]):not([type=range]):not([type=file]):not([type=color]):not([type=button]):not([type=submit]),select,textarea{font-size:16px!important}
  .nck41-chip{min-height:44px}
  .view-btn{min-height:44px}
+}
+
+/* ---- Tahap 41 (FINISH): perbaikan temuan pemeriksaan di HP ---- */
+/* Aturan lama "select{max-width:150px}" memotong teks pilihan (mis. provider AI, agen) di banyak panel; panel boleh selebar kolomnya. */
+.wf-field select,body>section select{max-width:100%}
+/* Tombol "Panel" mengambang: label terpotong ("Pane") karena font 16px di HP; lebarkan. */
+@media(max-width:760px),(hover:none) and (pointer:coarse){
+  body #nck35-jump{max-width:none}
+  body #nck35-jump select{width:136px;max-width:136px;padding:8px 8px}
 }
 
 </style>
